@@ -1,0 +1,8 @@
+{
+  "name": "Elevon",
+  "description": "Official presentation and pitch site for Elevon, engineered for seamless GitHub Pages hosting with sleek #d9d9d9, #2e4af0, and black aesthetics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

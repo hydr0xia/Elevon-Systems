@@ -1,124 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elevon Systems | Eyes and Brains of Autonomous Machines[cite: 1]</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elevon</title>
+    <meta name="description" content="Official presentation and pitch site for Elevon, engineered for seamless GitHub Pages hosting with sleek #d9d9d9, #2e4af0, and black aesthetics." />
+    <meta property="og:title" content="Elevon" />
+    <meta property="og:description" content="Official presentation and pitch site for Elevon, engineered for seamless GitHub Pages hosting with sleek #d9d9d9, #2e4af0, and black aesthetics." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Syne"', 'sans-serif'],
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+            colors: {
+              elevon: {
+                bg: '#d9d9d9',
+                card: '#e5e5e5',
+                darkCard: '#0f0f12',
+                border: '#bfbfbf',
+                blue: '#2e4af0',
+                blueDark: '#1d34b8',
+                blueLight: '#4d67ff',
+                black: '#0a0a0a',
+                slate: '#262626',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      body {
+        background-color: #d9d9d9;
+        color: #0a0a0a;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      /* Custom scrollbar matching Elevon palette */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #d9d9d9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e4af0;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #1d34b8;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.0/",
+    "react/": "https://esm.sh/react@^19.2.0/",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.24",
+    "lucide-react": "https://esm.sh/lucide-react@^0.553.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
-<body>
-    <nav class="navbar">
-        <div class="logo">ELEVON Systems[cite: 1]</div>
-        <ul class="nav-links">
-            <li><a href="#problem">The Problem</a></li>
-            <li><a href="#products">Our Platform</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero" id="home">
-        <div class="hero-content">
-            <h1>Invisible to drones.<br><span class="highlight">Visible to us.</span>[cite: 1]</h1>
-            <p>Elevon builds the eyes and brains of autonomous machines—from radar today to sovereign silicon tomorrow.[cite: 1]</p>
-            <div class="traction-banner">
-                <span>✓ Flying PoC[cite: 1]</span>
-                <span>✓ Top-5 national RISC-V challenge (C2S)[cite: 1]</span>
-                <span>✓ C-DAC R&D partner[cite: 1]</span>
-            </div>
-            <a href="#products" class="btn">View Our Platform</a>
-        </div>
-    </header>
-
-    <section id="problem" class="section dark-alt">
-        <div class="container">
-            <h2>Foreign Eyes, Foreign Brains[cite: 1]</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>1. Machines Can't See[cite: 1]</h3>
-                    <p>Drones & robots hit ultra-thin wires and obstacles cameras and LiDAR simply miss.[cite: 1]</p>
-                    <p>Optical sensors fail in fog, dust and glare; LiDAR is heavy and power-hungry. A single wire strike destroys the aircraft - the #1 blocker to safe BVLOS.[cite: 1]</p>
-                </div>
-                <div class="card">
-                    <h3>2. The Chips Are All Imported[cite: 1]</h3>
-                    <p>Edge & companion compute relies on imported Cortex-M / foreign MCUs.[cite: 1]</p>
-                    <p>Sensor ingestion overloads the flight controller. Foreign silicon = supply-chain bottlenecks and hardware-level security risk.[cite: 1]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="products" class="section">
-        <div class="container">
-            <h2>What We Build[cite: 1]</h2>
-            <p class="subtitle">A proven product - and the platform behind it.[cite: 1]</p>
-            <div class="grid-2">
-                <div class="product-card">
-                    <div class="status">Product 1 · Flying PoC[cite: 1]</div>
-                    <h3>Drone Radar Obstacle-Avoidance Module[cite: 1]</h3>
-                    <p>Detects obstacles & wires as thin as 6 mm and feeds a live avoid signal to the flight controller. mmWave radar + VEGA-on-FPGA. Working, flying today.[cite: 1]</p>
-                    <ul class="specs">
-                        <li><strong>Radar:</strong> TI IWR6843AOP (60 GHz)[cite: 1]</li>
-                        <li><strong>FPGA:</strong> Xilinx Artix-7 XC7A100T[cite: 1]</li>
-                        <li><strong>Capabilities:</strong> 72-sector obstacle map[cite: 1]</li>
-                        <li><strong>Price:</strong> ~Rs 2 L / module[cite: 1]</li>
-                    </ul>
-                </div>
-                <div class="product-card">
-                    <div class="status highlight-bg">Product 2 · On-Going[cite: 1]</div>
-                    <h3>Sovereign Companion-Controller SoC[cite: 1]</h3>
-                    <p>An indigenous edge-compute chip on the C-DAC VEGA RISC-V core (up to 28nm). The same proven pipeline, hardened into silicon for many applications.[cite: 1]</p>
-                    <ul class="specs">
-                        <li><strong>Core:</strong> VEGA AT1051 RISC-V[cite: 1]</li>
-                        <li><strong>Profiles:</strong> UAV avionics, Robotics / AMRs, Industrial IoT[cite: 1]</li>
-                        <li><strong>Features:</strong> Deterministic, low-power, secure hardware-level sensor ingestion.[cite: 1]</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="section dark-alt">
-        <div class="container">
-            <h2>The Team[cite: 1]</h2>
-            <p class="subtitle">Putting Indian silicon in the sky.[cite: 1]</p>
-            <div class="grid-3">
-                <div class="team-member">
-                    <h4>Joanna Philip[cite: 1]</h4>
-                    <p>Co-Founder & CEO[cite: 1]</p>
-                </div>
-                <div class="team-member">
-                    <h4>A Poorna Chandra[cite: 1]</h4>
-                    <p>Co-founder & CTO[cite: 1]</p>
-                    <p class="small">Electronics Hardware Enthusiast[cite: 1]</p>
-                </div>
-                <div class="team-member">
-                    <h4>Aditya[cite: 1]</h4>
-                    <p>Lead Engineer[cite: 1]</p>
-                    <p class="small">ECE engineer specializing in embedded systems and EV electronics.[cite: 1]</p>
-                </div>
-            </div>
-            <div class="mentorship">
-                <p><strong>Mentor:</strong> Dr. Raghuram S - HOD, ECE, Ramaiah Institute of Technology (RIT), Bengaluru.[cite: 1]</p>
-                <p><strong>R&D Partner:</strong> C-DAC - verified VEGA core IP integration and silicon sign-off support.[cite: 1]</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container footer-content">
-            <div class="footer-logo">ELEVON Systems LLP[cite: 1]</div>
-            <p>Indigenous eyes and brains for autonomous machines.[cite: 1]</p>
-            <div class="contact-info">
-                <p> Bengaluru, India[cite: 1]</p>
-                <p>✉️ <a href="mailto:tech@elevonsystems.in">tech@elevonsystems.in</a>[cite: 1]</p>
-                <p>📞 +91 73384 88320 | +91 91001 37956[cite: 1]</p>
-            </div>
-            <p class="copyright">&copy; 2026 Elevon Systems LLP. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none" class="w-auto h-8">
+  <!-- Aerodynamic Elevon Winglet Mark -->
+  <g id="elevon-glyph">
+    <!-- Base angled winglet (Black) -->
+    <path d="M6 38L22 10H34L18 38H6Z" fill="#0A0A0A"/>
+    <!-- Elevon active control surface flap (Electric Blue #2E4AF0) -->
+    <path d="M24 38L40 10H50L34 38H24Z" fill="#2E4AF0"/>
+    <!-- Precision accent notch -->
+    <polygon points="43,10 47,10 39,24 35,24" fill="#0A0A0A" opacity="0.3"/>
+  </g>
+  <!-- Wordmark: ELEVON -->
+  <text x="62" y="32" font-family="'Syne', 'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="800" letter-spacing="3" fill="#0A0A0A">
+    ELEVON
+  </text>
+  <!-- Dot / Accent Indicator in #2E4AF0 -->
+  <circle cx="190" cy="30" r="3.5" fill="#2E4AF0"/>
+</svg>

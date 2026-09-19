@@ -1,133 +1,188 @@
-import React from 'react';
-import { PitchData } from '../types';
-import { ImageSlot } from './ImageSlot';
-import { ArrowRight, ChevronDown, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import React, { useState } from 'react';
+import { ImagePlaceholder } from './ImagePlaceholder';
+import { ArrowRight, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface HeroProps {
-  pitchData: PitchData;
-  onOpenPitchEditor: () => void;
-  onImageChange: (slotId: string, url: string) => void;
+  customDroneUrl?: string;
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  pitchData,
-  onOpenPitchEditor,
-  onImageChange,
+  customDroneUrl = '/images/hero-drone.png',
 }) => {
-  const slide1 = pitchData.slides[0];
+  const [activeSlide, setActiveSlide] = useState(1);
+  const totalSlides = 3;
+
+  const handlePrev = () => {
+    setActiveSlide((prev) => (prev > 1 ? prev - 1 : totalSlides));
+  };
+
+  const handleNext = () => {
+    setActiveSlide((prev) => (prev < totalSlides ? prev + 1 : 1));
+  };
+
+  // High-res SVG graphic representing the quadcopter on test stand
+  const droneGraphic = (
+    <svg viewBox="0 0 540 420" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Test Stand Base & Uprights */}
+      <ellipse cx="270" cy="380" rx="140" ry="24" fill="#000000" opacity="0.08" />
+      <path d="M190 380L255 240H285L350 380" stroke="#8a8a8a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M210 340H330" stroke="#737373" strokeWidth="4" />
+      <rect x="245" y="235" width="50" height="12" rx="2" fill="#525252" />
+
+      {/* Main Airframe Center Plate */}
+      <rect x="220" y="195" width="100" height="42" rx="4" fill="#1c1c1e" />
+      
+      {/* Blue Avionics & Compute Core */}
+      <rect x="235" y="202" width="70" height="28" rx="2" fill="#2E4AF0" />
+      <text x="270" y="220" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="monospace" textAnchor="middle">
+        VEGA SoC
+      </text>
+
+      {/* Drone Arms (Orange / Carbon) */}
+      <line x1="230" y1="210" x2="110" y2="175" stroke="#0a0a0a" strokeWidth="12" strokeLinecap="round" />
+      <line x1="230" y1="210" x2="110" y2="175" stroke="#f97316" strokeWidth="6" strokeLinecap="round" />
+      <line x1="310" y1="210" x2="430" y2="175" stroke="#0a0a0a" strokeWidth="12" strokeLinecap="round" />
+      <line x1="310" y1="210" x2="430" y2="175" stroke="#f97316" strokeWidth="6" strokeLinecap="round" />
+      <line x1="240" y1="200" x2="155" y2="140" stroke="#0a0a0a" strokeWidth="10" strokeLinecap="round" />
+      <line x1="240" y1="200" x2="155" y2="140" stroke="#ea580c" strokeWidth="5" strokeLinecap="round" />
+      <line x1="300" y1="200" x2="385" y2="140" stroke="#0a0a0a" strokeWidth="10" strokeLinecap="round" />
+      <line x1="300" y1="200" x2="385" y2="140" stroke="#ea580c" strokeWidth="5" strokeLinecap="round" />
+
+      {/* Motor Mounts & Rotors */}
+      <rect x="92" y="160" width="36" height="26" rx="3" fill="#262626" />
+      <ellipse cx="110" cy="155" rx="70" ry="10" fill="#262626" opacity="0.35" />
+      <line x1="40" y1="155" x2="180" y2="155" stroke="#171717" strokeWidth="3" strokeLinecap="round" />
+
+      <rect x="412" y="160" width="36" height="26" rx="3" fill="#262626" />
+      <ellipse cx="430" cy="155" rx="70" ry="10" fill="#262626" opacity="0.35" />
+      <line x1="360" y1="155" x2="500" y2="155" stroke="#171717" strokeWidth="3" strokeLinecap="round" />
+
+      <rect x="142" y="128" width="26" height="20" rx="2" fill="#262626" />
+      <ellipse cx="155" cy="125" rx="55" ry="8" fill="#262626" opacity="0.3" />
+      <line x1="100" y1="125" x2="210" y2="125" stroke="#171717" strokeWidth="2.5" strokeLinecap="round" />
+
+      <rect x="372" y="128" width="26" height="20" rx="2" fill="#262626" />
+      <ellipse cx="385" cy="125" rx="55" ry="8" fill="#262626" opacity="0.3" />
+      <line x1="330" y1="125" x2="440" y2="125" stroke="#171717" strokeWidth="2.5" strokeLinecap="round" />
+
+      {/* Upper Radar Payload Enclosure */}
+      <rect x="238" y="145" width="64" height="42" rx="4" fill="#d97706" stroke="#92400e" strokeWidth="2" />
+      <rect x="245" y="152" width="50" height="26" rx="2" fill="#b45309" />
+      <text x="270" y="168" fill="#ffffff" fontSize="8" fontFamily="monospace" fontWeight="700" textAnchor="middle">
+        ASTRAN mmWave
+      </text>
+
+      {/* Landing Gear / Wire Guards */}
+      <path d="M225 240L205 320L180 320" stroke="#404040" strokeWidth="4" strokeLinecap="round" />
+      <path d="M315 240L335 320L360 320" stroke="#404040" strokeWidth="4" strokeLinecap="round" />
+    </svg>
+  );
 
   return (
-    <section id="hero" className="pt-28 pb-16 md:pt-36 md:pb-24 bg-[#d9d9d9] text-elevon-black overflow-hidden">
+    <section id="home" className="pt-28 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Pitch Tag & Status Line */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-elevon-border/80">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-elevon-black text-white text-[11px] font-mono font-bold tracking-widest uppercase rounded">
-            <span className="w-2 h-2 rounded-full bg-elevon-blue animate-pulse"></span>
-            EXECUTIVE PITCH DECK &bull; PAGE 01
-          </div>
-          <div className="text-xs font-mono text-stone-700 flex items-center gap-3">
-            <span className="hidden sm:inline font-semibold">PALETTE:</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#d9d9d9] border border-black inline-block"></span> #d9d9d9</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#2e4af0] inline-block"></span> #2e4af0</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-black inline-block"></span> Black</span>
-          </div>
-        </div>
-
-        {/* Hero Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column: Title & Punchy Pitch Thesis */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-3">
-              <span className="text-xs font-mono font-bold tracking-[0.25em] text-elevon-blue uppercase block">
-                {pitchData.deckSubtitle}
-              </span>
-              <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-elevon-black leading-[1.05]">
-                {pitchData.companyName}
-              </h1>
-              <p className="text-sm sm:text-base font-mono font-bold text-stone-800 tracking-wider uppercase">
-                {pitchData.tagline}
-              </p>
-            </div>
-
-            {/* Direct Value Drivers (Concise, no fluff) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <div className="p-3 bg-[#e5e5e5] border border-stone-400/80 rounded-lg">
-                <div className="flex items-center gap-2 text-elevon-blue text-xs font-bold font-mono uppercase mb-1">
-                  <Zap size={14} />
-                  <span>Actuation Speed</span>
-                </div>
-                <div className="text-2xl font-display font-extrabold text-elevon-black">
-                  {pitchData.keyMetrics[0]?.value || '< 12ms'}
-                </div>
-                <p className="text-[11px] text-stone-600 font-mono mt-0.5">
-                  {pitchData.keyMetrics[0]?.label || 'Control surface response'}
-                </p>
-              </div>
-
-              <div className="p-3 bg-[#e5e5e5] border border-stone-400/80 rounded-lg">
-                <div className="flex items-center gap-2 text-elevon-blue text-xs font-bold font-mono uppercase mb-1">
-                  <ShieldCheck size={14} />
-                  <span>Drag Reduction</span>
-                </div>
-                <div className="text-2xl font-display font-extrabold text-elevon-black">
-                  {pitchData.keyMetrics[1]?.value || '- 18.4%'}
-                </div>
-                <p className="text-[11px] text-stone-600 font-mono mt-0.5">
-                  {pitchData.keyMetrics[1]?.label || 'Parasitic drag benchmark'}
-                </p>
+          {/* Left Hero Text Column (6.5 cols) */}
+          <div className="lg:col-span-7">
+            
+            {/* Blue Accent Bar & Pre-Seed Kicker */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-[3px] bg-elevon-blue"></div>
+              <div className="text-xs font-mono font-bold tracking-widest text-elevon-blue uppercase">
+                PRE-SEED &bull; TRL 4/5 &bull; 2026
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* Main Headline */}
+            <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-elevon-black tracking-tight leading-[1.08] mb-5">
+              Invisible to drones.<br />
+              Visible to us.
+            </h1>
+
+            {/* Subtitle description */}
+            <p className="text-sm sm:text-base text-stone-700 leading-relaxed max-w-lg mb-8 font-normal">
+              Elevon builds the eyes and brains of autonomous machines — from radar today to sovereign silicon tomorrow.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-5 mb-10">
               <a
-                href="#problem-solution"
-                className="flex items-center gap-2 px-5 py-2.5 bg-elevon-black hover:bg-stone-900 text-white font-medium text-xs rounded-lg transition-colors uppercase tracking-wider font-mono shadow-xs"
+                href="#technology"
+                className="inline-flex items-center gap-2 bg-elevon-blue hover:bg-elevon-blueDark text-white px-6 py-3 rounded-xs font-semibold text-xs tracking-wider uppercase transition-colors shadow-xs"
               >
-                <span>Explore Pitch Deck</span>
-                <ArrowRight size={14} className="text-elevon-blue" />
+                <span>OUR TECHNOLOGY</span>
+                <ArrowRight size={15} />
               </a>
 
-              <button
-                onClick={onOpenPitchEditor}
-                className="px-4 py-2.5 bg-[#e5e5e5] hover:bg-white text-elevon-black border border-stone-400/90 font-medium text-xs rounded-lg transition-colors uppercase tracking-wider font-mono"
+              <a
+                href="#proof"
+                className="inline-flex items-center gap-2 text-elevon-black hover:text-elevon-blue px-4 py-3 font-semibold text-xs tracking-wider uppercase transition-colors"
               >
-                Set Exact Pitch Values
-              </button>
+                <span>WATCH DEMO</span>
+                <Play size={13} fill="currentColor" />
+              </a>
+            </div>
+
+            {/* Bottom Proof Line */}
+            <div className="pt-2 text-xs font-medium text-elevon-blue tracking-wide flex flex-wrap items-center gap-2">
+              <span>Flying PoC</span>
+              <span className="text-stone-400">&bull;</span>
+              <span>Top-5 national RISC-V challenge (C2S)</span>
+              <span className="text-stone-400">&bull;</span>
+              <span>C-DAC R&D partner</span>
             </div>
           </div>
 
-          {/* Right Column: Slide 1 Feature Image Slot */}
-          <div className="lg:col-span-6">
-            <div className="bg-[#e5e5e5] p-3 sm:p-4 rounded-2xl border-2 border-elevon-black/80 shadow-md">
-              <div className="flex items-center justify-between mb-2 px-1">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-700">
-                  Slide 01 Asset Slot
-                </span>
-                <span className="text-[10px] font-mono bg-elevon-blue text-white px-2 py-0.5 rounded font-semibold">
-                  PAGE 1
-                </span>
-              </div>
-
-              {slide1 && (
-                <ImageSlot
-                  id={slide1.imagePlaceholder.id}
-                  pageNumber={slide1.pageNumber}
-                  label={slide1.imagePlaceholder.label}
-                  aspectRatio="16:9"
-                  recommendedSize={slide1.imagePlaceholder.recommendedSize}
-                  customUrl={slide1.imagePlaceholder.customUrl}
-                  onImageChange={onImageChange}
-                  className="w-full shadow-inner"
-                />
-              )}
-
-              <p className="text-[11px] font-mono text-stone-600 mt-2.5 text-center">
-                Replace with the hero visual / render from <strong>Page 1</strong> of your pitch deck.
-              </p>
+          {/* Right Hero Visual Column (5 cols) */}
+          <div className="lg:col-span-5 relative">
+            
+            {/* Vertical Badge Top-Right */}
+            <div className="absolute top-2 right-2 z-10 text-right font-mono text-[10px] tracking-widest leading-snug text-stone-700 font-semibold select-none border-l border-stone-400/80 pl-2 bg-[#d9d9d9]/60 backdrop-blur-xs">
+              <div>RADAR</div>
+              <div>COMPUTE</div>
+              <div>AUTONOMY</div>
+              <div>INDIGENOUSLY</div>
             </div>
+
+            {/* Drone on Test Stand Image Slot */}
+            <div className="relative w-full">
+              <ImagePlaceholder
+                id="hero-drone-slot"
+                src={customDroneUrl}
+                alt="Elevon Drone on Test Stand with Radar & RISC-V Compute"
+                aspectRatio="4/3"
+                label="Elevon Drone on Test Stand"
+                defaultGraphic={droneGraphic}
+                className="bg-transparent border-0 shadow-none"
+              />
+            </div>
+
+            {/* Bottom-right Slider / Pagination indicator */}
+            <div className="flex items-center justify-end gap-3 text-xs font-mono font-medium text-stone-800 mt-2 select-none">
+              <span>
+                {String(activeSlide).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handlePrev}
+                  className="p-1 hover:text-elevon-blue transition-colors cursor-pointer"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <span className="text-stone-400">|</span>
+                <button
+                  onClick={handleNext}
+                  className="p-1 hover:text-elevon-blue transition-colors cursor-pointer"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+
           </div>
 
         </div>
